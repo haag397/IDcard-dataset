@@ -20,7 +20,9 @@ def gregorian_to_jalali(gregorian_date_str):
 
 # Function to generate fake ID card
 def generate_id_card(national_id, name, last_name, father_name, birth_date, expiry_date):
-    image_path = "cleaned_id_card.jpg"  # Replace with actual template path
+    # image_path = "cleaned_id_card.jpg"  # Replace with actual template path
+    image_path = "new_ids.jpg"  # Replace with actual template path
+
     image = cv2.imread(image_path)
 
     # Convert BGR to RGB (OpenCV to Pillow)
