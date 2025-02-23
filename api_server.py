@@ -10,18 +10,20 @@ import time
 app = Flask(__name__)
 
 # Font path (change if needed)
-FONT_PATH = "/usr/share/fonts/truetype/Yekan.ttf"  # Adjust if necessary
+# FONT_PATH = "/usr/share/fonts/truetype/Yekan.ttf"  # Adjust if necessary
+FONT_PATH = "/home/hasan/Yekan.ttf"  # Adjust if necessary
 
 # Convert Gregorian date to Jalali (Shamsi)
 def gregorian_to_jalali(gregorian_date_str):
-    gregorian_date = jdatetime.strptime(gregorian_date_str, "%Y-%m-%d").togregorian()
+    gregorian_date = jdatetime.strptime(gregorian_date_str, "%Y/%m/%d").togregorian()
     jalali_date = jdatetime.fromgregorian(date=gregorian_date)
     return jalali_date.strftime("%Y/%m/%d")
 
 # Function to generate fake ID card
 def generate_id_card(national_id, name, last_name, father_name, birth_date, expiry_date):
     # image_path = "cleaned_id_card.jpg"  # Replace with actual template path
-    image_path = "new_ids.jpg"  # Replace with actual template path
+    # image_path = "new_ids.jpg"  # Replace with actual template path
+    image_path = "cl_id.jpg"  # Replace with actual template path
 
     image = cv2.imread(image_path)
 
@@ -43,10 +45,10 @@ def generate_id_card(national_id, name, last_name, father_name, birth_date, expi
     # Define text positions (adjust as needed)
     positions = {
         "national_id": (800, 210),
-        "name": (950, 300),
-        "last_name": (930, 380),
+        "name": (830, 300),
+        "last_name": (795, 380),
         "birth_date": (810, 460),
-        "father_name": (950, 538),
+        "father_name": (885, 538),
         "expiry_date": (810, 612),
     }
 

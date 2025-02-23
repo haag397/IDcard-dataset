@@ -1,8 +1,10 @@
 arabic-reshaper==3.0.0
 Faker==36.1.1
+Flask==3.1.0
 jalali_core==1.0.0
 jdatetime==5.2.0
 numpy==2.2.3
 opencv-python==4.11.0.86
+pandas==2.2.3
 pillow==11.1.0
 python-bidi==0.6.6

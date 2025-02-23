@@ -10,13 +10,14 @@ import time
 app = Flask(__name__)
 
 # Font path (change if needed)
-FONT_PATH = "/usr/share/fonts/truetype/Yekan.ttf"  # Adjust if necessary
-TEMPLATE_PATH = "new_ids.jpg"  # Your ID card template
+# FONT_PATH = "/usr/share/fonts/truetype/Yekan.ttf"  # Adjust if necessary
+FONT_PATH = "/home/hasan/Yekan.ttf"  # Adjust if necessary
+TEMPLATE_PATH = "cl_id.jpg"  # Your ID card template
 
 # Convert Gregorian date to Jalali (Shamsi)
 def gregorian_to_jalali(gregorian_date_str):
     try:
-        gregorian_date = jdatetime.strptime(gregorian_date_str, "%Y-%m-%d").togregorian()
+        gregorian_date = jdatetime.strptime(gregorian_date_str, "%Y/%m/%d").togregorian()
         jalali_date = jdatetime.fromgregorian(date=gregorian_date)
         return jalali_date.strftime("%Y/%m/%d")
     except:
@@ -42,10 +43,10 @@ def generate_id_card(national_id, name, last_name, father_name, birth_date, expi
     # Define text positions
     positions = {
         "national_id": (800, 210),
-        "name": (950, 300),
-        "last_name": (930, 380),
+        "name": (830, 300),
+        "last_name": (795, 380),
         "birth_date": (810, 460),
-        "father_name": (950, 538),
+        "father_name": (885, 538),
         "expiry_date": (810, 612),
     }
 
@@ -73,7 +74,6 @@ def generate_id_card(national_id, name, last_name, father_name, birth_date, expi
 
     return output_path
 
-# Flask API for bulk processing
 @app.route('/generate_bulk_ids', methods=['POST'])
 def generate_bulk_ids():
     try:
@@ -81,10 +81,10 @@ def generate_bulk_ids():
         file = request.files.get("file")
         if not file:
             return jsonify({"error": "CSV file is required"}), 400
-
-        # Read CSV file into Pandas DataFrame
-        df = pd.read_csv(file)
-
+        
+        # Read CSV file and fill missing values
+        # df = pd.read_csv(file).fillna("")
+        df = pd.read_csv(file, dtype={"national_id": str}).fillna("")
         # Check required columns
         required_columns = {"national_id", "name", "last_name", "father_name", "birth_date", "expiry_date"}
         if not required_columns.issubset(set(df.columns)):
@@ -96,8 +96,13 @@ def generate_bulk_ids():
         # Generate ID cards for each row
         for _, row in df.iterrows():
             file_path = generate_id_card(
-                row["national_id"], row["name"], row["last_name"], 
-                row["father_name"], row["birth_date"], row["expiry_date"], output_folder
+                str(row["national_id"]), 
+                str(row["name"]), 
+                str(row["last_name"]), 
+                str(row["father_name"]), 
+                str(row["birth_date"]), 
+                str(row["expiry_date"]), 
+                output_folder
             )
             generated_files.append(file_path)
 
