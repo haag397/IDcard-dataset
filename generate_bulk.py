@@ -10,10 +10,9 @@ import time
 app = Flask(__name__)
 
 # Font path (change if needed)
-# FONT_PATH = "/usr/share/fonts/truetype/Yekan.ttf"  # Adjust if necessary
-FONT_PATH = "/home/hasan/Yekan.ttf"  # Adjust if necessary
+FONT_PATH = "/usr/share/fonts/truetype/Yekan.ttf"  # Adjust if necessary
+# FONT_PATH = "/home/hasan/Yekan.ttf"  # Adjust if necessary
 TEMPLATE_PATH = "cl_id.jpg"  # Your ID card template
-
 # Convert Gregorian date to Jalali (Shamsi)
 def gregorian_to_jalali(gregorian_date_str):
     try:

@@ -46,9 +46,9 @@ def generate_id_card(national_id, name, last_name, father_name, birth_date, expi
     positions = {
         "national_id": (800, 210),
         "name": (830, 300),
-        "last_name": (795, 380),
+        "last_name": (767, 380),
         "birth_date": (810, 460),
-        "father_name": (885, 538),
+        "father_name": (880, 538),
         "expiry_date": (810, 612),
     }
 
@@ -68,11 +68,11 @@ def generate_id_card(national_id, name, last_name, father_name, birth_date, expi
 
     # Create unique filename
     timestamp = int(time.time())
-    filename = f"generated_id_{timestamp}.jpg"
-    output_path = os.path.join("generated_ids", filename)
+    filename = f"generate_id{timestamp}.jpg"
+    output_path = os.path.join("generate_id", filename)
     
     # Ensure output directory exists
-    os.makedirs("generated_ids", exist_ok=True)
+    os.makedirs("generate_id", exist_ok=True)
     
     # Save image
     image_pil.save(output_path, format="JPEG")
